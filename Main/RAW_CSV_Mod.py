@@ -4,6 +4,7 @@ import os
 import csv
 import glob
 
+
 main_path = os.path.dirname(__file__)             ## get the current working directory(cwd) of the RAW_CSV_Mod.py file
 raw_path = main_path+'/RAW_STOCK_DATA/'      ## add path to cwd for raw csv file path
 ex_location = main_path + '/ML_STOCK_DATA/'   ## add path to cwd for export of data csv files
@@ -18,7 +19,7 @@ for file in all_filenames:
    os.chdir(main_path)
    os.chdir(ex_location)
    with open(ex_filename, 'w', newline='\n') as newCSV:
-       fieldnames = ['Date', 'OpenValue', 'CloseValue', 'Change%']
+       fieldnames = ['Date', 'OpenValue', 'CloseValue', 'DayChange%']
        write = csv.DictWriter(newCSV, fieldnames=fieldnames)
        write.writeheader()
        os.chdir(main_path)
@@ -32,15 +33,10 @@ for file in all_filenames:
                    date = row[0]
                    openVal = float(row[3].replace(index, ''))
                    closeVal = float(row[1].replace(index, ''))
-                   changeP = (openVal // closeVal)
+                   dayChangeP = (closeVal-openVal)/closeVal*100
+                   print(dayChangeP)
                    os.chdir(main_path)
                    os.chdir(ex_location)
-                   write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'Change%': changeP})
+                   write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayChange%': dayChangeP})
                    os.chdir(main_path)
                    os.chdir(raw_path)
-
-
-
-
-
-
