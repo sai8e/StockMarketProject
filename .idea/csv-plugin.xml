@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\Main\ML_STOCK_DATA\AAPL_READY.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\RAW_STOCK_ DATA\AAPL_historical_data.csv">
           <value>
             <Attribute>
