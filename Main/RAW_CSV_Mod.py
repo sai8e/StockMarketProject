@@ -1,12 +1,13 @@
 ## This program takes the Raw Stock DATA and Modifies it, it can be added to the Machine Learning Algorium
 
-import os
+import os.path
 import csv
 
 current_path = os.path.dirname(__file__)
-raw_path = os.path.relpath("..\\RAW_STOCK_DATA\\AAPL_historical_data.csv", current_path)
-export_location = os.path.relpath("..\\ML_STOCK_DATA\\AAPL_historical_data.csv", current_path)
+raw_path = current_path + '/RAW_STOCK_DATA/'
+export_location = current_path + '/ML_STOCK_DATA/'
+raw_csv = raw_path+'AAPL_historical_data.csv'
 
-with open(raw_path) as rawCSV:
-    csv_read = csv.reader(rawCSV, delimiter=',')
-
+with open(raw_csv) as rawCSV:
+    raw_read = csv.reader(rawCSV, delimiter=',')
+print(raw_read)
