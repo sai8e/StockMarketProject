@@ -1,0 +1,3 @@
+## This program takes the Raw Stock DATA and Modifies it, it can be added to the Machine Learning Algorium
+
+import csv
