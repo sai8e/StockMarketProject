@@ -12,6 +12,7 @@ raw_path = main_path+'/RAW_STOCK_DATA/'                                         
 ex_location = main_path + '/ML_STOCK_DATA/'                                                                                ## add path to cwd for export of data csv files
 
 os.chdir(raw_path)                                                                                                         ## changes cwd raw_path
+prevClose = 0
 file_extension = ".csv"                                                                                                    ## sets desired file_extension
 all_filenames = [i for i in glob.glob(f"*{file_extension}")]                                                               ## gets all files with the set file_extention
 
@@ -20,7 +21,7 @@ for file in all_filenames:                                                      
 
    os.chdir(ex_location)                                                                                                   ## change cwd to export location
    with open(ex_filename, 'w', newline='\n') as newCSV:                                                                    ## creates export csv file
-       fieldnames = ['Date', 'OpenValue', 'CloseValue', 'DayChange%']                                                      ## sets header names
+       fieldnames = ['Date', 'OpenValue', 'CloseValue', 'DayChange%', 'OpenChange%']                                                      ## sets header names
        write = csv.DictWriter(newCSV, fieldnames=fieldnames)                                                               ## creates formats writer
        write.writeheader()                                                                                                 ## writes header
        os.chdir(raw_path)                                                                                                  ## change cwd the raw file location
@@ -33,7 +34,12 @@ for file in all_filenames:                                                      
                    date = row[0]                                                                                           ## sets date value
                    openVal = float(row[3].replace(index, ''))                                                              ## sets openVal value to flaot anf removes value index
                    closeVal = float(row[1].replace(index, ''))                                                             ## sets closeVal value to flaot anf removes value index
-                   dayChangeP = (closeVal-openVal)/closeVal*100                                                            ## compares openVal to closeVal and get percentage
+                   dayChangeP = ((closeVal-openVal)/openVal)*100                                                            ## compares openVal to closeVal and get percentage
+                   if prevClose != 0:
+                       openChangeP = ((openVal-prevClose)/prevClose)*100
+                   else:
+                       openChangeP = 0
                    os.chdir(ex_location)                                                                                   ## change cwd to export location
-                   write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayChange%': dayChangeP})  ## writes values to export File
+                   write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayChange%': dayChangeP, 'OpenChange%' : openChangeP})  ## writes values to export File
+                   prevClose = float(row[1].replace(index, ''))
 
