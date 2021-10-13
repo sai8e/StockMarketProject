@@ -34,7 +34,7 @@ for file in all_filenames:                                                      
                    date = row[0]                                                                                           ## sets date value
                    openVal = float(row[3].replace(index, ''))                                                              ## sets openVal value to flaot anf removes value index
                    closeVal = float(row[1].replace(index, ''))                                                             ## sets closeVal value to flaot anf removes value index
-                   dayChangeP = ((closeVal-openVal)/openVal)*100                                                            ## compares openVal to closeVal and get percentage
+                   dayChangeP = ((closeVal-openVal)/openVal)*100                                                           ## compares openVal to closeVal and get percentage
                    if prevClose == 0.0:
                        openChangeP = 0
                    else:
