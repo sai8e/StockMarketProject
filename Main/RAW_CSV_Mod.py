@@ -1,5 +1,5 @@
 ## Writen By Jonathan Nope
-## Last Edited 10/10/2021
+## Last Edited 10/13/2021
 ## This program takes the Raw Stock DATA and Modifies it, it can be added to the Machine Learning Algorium
 
 import os
