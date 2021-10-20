@@ -1,5 +1,7 @@
 ## Written By Jonathan Nope ##
 
+
+
 import pandas_datareader as pdr
 import yfinance as yf
 import os
