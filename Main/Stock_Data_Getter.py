@@ -1,9 +1,13 @@
+## Written By Jonathan Nope ##
+
 import pandas_datareader as pdr
 import yfinance as yf
 import os
 import csv
 import datetime as dt
 import glob
+
+
 
 main_path = os.path.dirname(__file__)
 Export_Folder = main_path+"/Stock Data/"
@@ -16,6 +20,7 @@ yf.pdr_override()
 file_extension = ".csv"
 
 
+
 with open(index_file, 'r', newline='\n') as INDEX_CSV:
     INDEX_read = csv.reader(INDEX_CSV, delimiter=',')
     header = next(INDEX_read)
@@ -24,10 +29,13 @@ with open(index_file, 'r', newline='\n') as INDEX_CSV:
             index.append(row[0])
 
 
+
 os.chdir(Export_Folder)
 all_filenames = [i for i in glob.glob(f"*{file_extension}")]
 for file in all_filenames:
     os.remove(file)
+
+
 
 for ticker in index:
     data = pdr.get_data_yahoo(ticker, start, end)
@@ -48,11 +56,11 @@ for file in all_filenames:
             header = next(rows_read)
             if header != None:
                 for row in rows_read:
-                    index = '$'
+                    sym = '$'
                     date = row[0]
-                    openVal = float(row[3].replace(index, ''))
-                    closeVal = float(row[4].replace(index, ''))
+                    openVal = float(row[3].replace(sym, ''))
+                    closeVal = float(row[4].replace(sym, ''))
                     dayAVG = (openVal+closeVal)/2
                     write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayAverage': dayAVG})
-                    prevClose = float(row[1].replace(index, ''))
+                    prevClose = float(row[1].replace(sym, ''))
     os.remove(file)
