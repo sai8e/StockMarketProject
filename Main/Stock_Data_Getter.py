@@ -47,7 +47,7 @@ for ticker in index:
 
 all_filenames = [i for i in glob.glob(f"*{file_extension}")]
 for file in all_filenames:
-    previousAVG=0
+    previousAVG = 0
     ex_filename = file[:file.find('.')]+"_READY.csv"
     with open(ex_filename, 'w', newline='\n') as newCSV:
         fieldnames = ['Date', 'OpenValue', 'CloseValue', 'DayAverage', 'DayAVGChange']
@@ -68,3 +68,4 @@ for file in all_filenames:
                     prevClose = float(row[1].replace(sym, ''))
                     previousAVG = dayAVG
     os.remove(file)
+
