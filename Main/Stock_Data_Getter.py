@@ -64,7 +64,8 @@ for file in all_filenames:
                     closeVal = float(row[4].replace(sym, ''))
                     dayAVG = (openVal+closeVal)/2
                     dayAVGChange = (dayAVG-previousAVG)
-                    write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayAverage': dayAVG, 'DayAVGChange': dayAVGChange})
+                    write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayAverage': dayAVG,
+                                    'DayAVGChange': dayAVGChange})
                     prevClose = float(row[1].replace(sym, ''))
                     previousAVG = dayAVG
     os.remove(file)
