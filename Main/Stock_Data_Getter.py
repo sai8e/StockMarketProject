@@ -47,10 +47,10 @@ for ticker in index:
 
 all_filenames = [i for i in glob.glob(f"*{file_extension}")]
 for file in all_filenames:
-
+    previousAVG=0
     ex_filename = file[:file.find('.')]+"_READY.csv"
     with open(ex_filename, 'w', newline='\n') as newCSV:
-        fieldnames = ['Date', 'OpenValue', 'CloseValue', 'DayAverage']
+        fieldnames = ['Date', 'OpenValue', 'CloseValue', 'DayAverage', 'DayAVGChange']
         write = csv.DictWriter(newCSV, fieldnames=fieldnames)
         write.writeheader()
         with open(file, 'r', newline='\n') as rawCSV:
@@ -63,6 +63,8 @@ for file in all_filenames:
                     openVal = float(row[3].replace(sym, ''))
                     closeVal = float(row[4].replace(sym, ''))
                     dayAVG = (openVal+closeVal)/2
-                    write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayAverage': dayAVG})
+                    dayAVGChange = (dayAVG-previousAVG)
+                    write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayAverage': dayAVG, 'DayAVGChange': dayAVGChange})
                     prevClose = float(row[1].replace(sym, ''))
+                    previousAVG = dayAVG
     os.remove(file)
