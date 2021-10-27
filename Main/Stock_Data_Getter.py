@@ -1,6 +1,5 @@
 # Written By Jonathan Nope #
 
-
 import pandas_datareader as pdr
 import yfinance as yf
 import os
@@ -39,7 +38,7 @@ for file in all_filenames:
     previousAVG = 0
     ex_filename = file[:file.find('.')] + "_READY.csv"
     with open(ex_filename, 'w', newline='\n') as newCSV:
-        fieldnames = ['Date', 'OpenValue', 'CloseValue', 'DayAverage', 'DayAVGChange']
+        fieldnames = ['Date', 'Open', 'Close', 'Average', 'AVGChange', 'Volume']
         write = csv.DictWriter(newCSV, fieldnames=fieldnames)
         write.writeheader()
         with open(file, 'r', newline='\n') as rawCSV:
@@ -51,10 +50,11 @@ for file in all_filenames:
                     date = row[0]
                     openVal = float(row[3].replace(sym, ''))
                     closeVal = float(row[4].replace(sym, ''))
+                    vol = row[5]
                     dayAVG = (openVal + closeVal) / 2
                     dayAVGChange = (dayAVG - previousAVG)
-                    write.writerow({'Date': date, 'OpenValue': openVal, 'CloseValue': closeVal, 'DayAverage': dayAVG,
-                                    'DayAVGChange': dayAVGChange})
+                    write.writerow({'Date': date, 'Open': openVal, 'Close': closeVal, 'Average': dayAVG,
+                                    'AVGChange': dayAVGChange, 'Volume': vol})
                     prevClose = float(row[1].replace(sym, ''))
                     previousAVG = dayAVG
     os.remove(file)
