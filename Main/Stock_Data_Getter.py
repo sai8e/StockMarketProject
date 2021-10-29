@@ -13,9 +13,10 @@ index_file = "INDEX.csv"
 index = []
 date = dt.datetime.now()
 end = date.strftime('%Y') + '-' + date.strftime('%m') + '-' + date.strftime('%d')
-start = str(int(date.strftime('%Y')) - 2) + '-' + date.strftime('%m') + '-' + date.strftime('%d')
+start = str(int(date.strftime('%Y')) - 10) + '-' + date.strftime('%m') + '-' + date.strftime('%d')
 yf.pdr_override()
 file_extension = ".csv"
+time_format = "%Y-%m-%d"
 
 with open(index_file, 'r', newline='\n') as INDEX_CSV:
     INDEX_read = csv.reader(INDEX_CSV, delimiter=',')
@@ -31,7 +32,7 @@ for file in all_filenames:
 
 for ticker in index:
     data = pdr.get_data_yahoo(ticker, start, end)
-    data.to_csv(ticker + '.csv')
+    data.to_csv(ticker + '.csv', index_label=False)
 
 all_filenames = [i for i in glob.glob(f"*{file_extension}")]
 for file in all_filenames:
@@ -48,12 +49,13 @@ for file in all_filenames:
                 for row in rows_read:
                     sym = '$'
                     date = row[0]
+                    date_time = dt.datetime.strptime(date, time_format)
                     openVal = float(row[3].replace(sym, ''))
                     closeVal = float(row[4].replace(sym, ''))
                     vol = row[5]
                     dayAVG = (openVal + closeVal) / 2
                     dayAVGChange = (dayAVG - previousAVG)
-                    write.writerow({'Date': date, 'Open': openVal, 'Close': closeVal, 'Average': dayAVG,
+                    write.writerow({'Date': date_time, 'Open': openVal, 'Close': closeVal, 'Average': dayAVG,
                                     'AVGChange': dayAVGChange, 'Volume': vol})
                     prevClose = float(row[1].replace(sym, ''))
                     previousAVG = dayAVG
