@@ -48,4 +48,4 @@ for ticker in index:
     dChange = np.array(add_dayChange)
     df['Average'] = AVG.tolist()
     df['AVGChange'] = dChange.tolist()
-    df.to_pickle(ticker)
+    df.to_csv(ticker + file_extension)
