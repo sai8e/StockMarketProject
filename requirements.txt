@@ -1,9 +1,10 @@
-streamlit>=0.78.0
-alpha_vantage
-yfinance
+Cython
+numpy
 pandas
-plotly
 matplotlib
-Prophet
+convertdate
+pystan==2.19.1.1
+yfinance
+streamlit
+plotly
 fbprophet
-holidays
