@@ -1,4 +1,4 @@
-# module
+# 
 import streamlit as st
 from datetime import date
 import yfinance as yf
@@ -6,8 +6,12 @@ from fbprophet import Prophet
 from fbprophet.plot import plot_plotly
 from plotly import graph_objs as go 
 
+
+
 Start = "2015-01-01"
 Today = date.today().strftime("%Y-%m-%d")
+
+
 
 st.title("Stock Prediction App")
 
