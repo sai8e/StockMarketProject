@@ -20,7 +20,7 @@ stock = st.text_input("Choose a Stock to Predict", "TSLA")
 #stocks = ("AAPL", "GOOG", "MSFT", "GME")
 #selected_stock = st.selectbox("Select dataset for prediction", stocks)
 
-n_days = st.slider("Weeks to predict:",1 , 5)
+n_days = st.slider("Years to predict:",1 , 5)
 period = n_days *365
 
 
