@@ -59,8 +59,8 @@ def plot_raw_data():
     fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='stock_open'))
     fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='stock_close'))
     fig.layout.update(title_text='Time serious Data', xaxis_rangeslider_visible=True)
-#     st.plotly_chart(fig)
-    st.bar_chart(fig)
+    st.plotly_chart(fig)
+#     st.bar_chart(fig)
 
 
 plot_raw_data()
