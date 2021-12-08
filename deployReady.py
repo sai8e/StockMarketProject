@@ -18,7 +18,7 @@ with open('./resource/nasdaq_screener_1638830312199.csv') as csvfile:
          stockChoice.append(row[0])
 print(stockChoice)
 
-stock = st.sidebar.text_input('Chose a stock to predict', "TSLA")
+# stock = st.sidebar.text_input('Chose a stock to predict', "TSLA")
 stockFav = st.sidebar.selectbox('Favourites', stockChoice)
 
 option = st.sidebar.selectbox('Choose a time period', ('Year', 'Month', 'Week'))
@@ -56,8 +56,8 @@ def load_data(ticker):
 
 data_load_state = st.text("Load data...")
 
-data = load_data(stock)
-
+# data = load_data(stock)
+data = load_data(stockFav)
 
 
 data_load_state.text("Loading data...Done")
