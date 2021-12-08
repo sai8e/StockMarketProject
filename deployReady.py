@@ -4,31 +4,39 @@ import yfinance as yf
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly
 from plotly import graph_objs as go
+import csv
+import datetime
+###########
+# sidebar #
+###########
+
+stockChoice = []
+
+with open('/resources/nasdaq_screener_1638830312199.csv') as csvfile:
+    csvReader = csv.reader(csvfile)
+    for row in csvReader:
+         stockChoice.append(row[0])
+print(stockChoice)
+
+stock = st.sidebar.text_input('Chose a stock to predict', "TSLA")
+stockFav = st.sidebar.selectbox('Favourites', stockChoice)
+
+option = st.sidebar.selectbox('Choose a time period', ('Year', 'Month', 'Week'))
 
 Start = "2015-01-01"
 Today = date.today().strftime("%Y-%m-%d")
 
 st.title("Stock Prediction App")
 
-stock = st.text_input("Choose a Stock to Predict", "TSLA")
-# stocks = ("AAPL", "GOOG", "MSFT", "GME")
-# selected_stock = st.selectbox("Select dataset for prediction", stocks)
-
-option = st.selectbox('Choose a time period', ('Year', 'Month', 'Week'))
-
-
-#timeperiod = st.text_input("Choose time period: Year, Month, Week", "Year")
-
-
 period = 0
 if option == "Year":
-    n_days = st.slider("Years to predict:", 1, 5)
+    n_days = st.sidebar.slider("Years to predict:", 1, 5)
     period = n_days * 365
 if option == "Month":
-    n_days = st.slider("Months to predict:", 1, 5)
+    n_days = st.sidebar.slider("Months to predict:", 1, 5)
     period = n_days * 12
 if option == "Week":
-    n_days = st.slider("Weeks to predict:", 1, 5)
+    n_days = st.sidebar.slider("Weeks to predict:", 1, 5)
     period = n_days * 7
 else:
     print("Error. Please select Year, Month, or Week")
@@ -36,7 +44,7 @@ else:
 
 #
 ##n_days = st.slider(option, 1, 5)
-#period = n_days * 365
+# period = n_days * 365
 
 
 @st.cache
@@ -47,7 +55,11 @@ def load_data(ticker):
 
 
 data_load_state = st.text("Load data...")
+
 data = load_data(stock)
+
+
+
 data_load_state.text("Loading data...Done")
 
 st.subheader('Raw Data')
@@ -60,7 +72,6 @@ def plot_raw_data():
     fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='stock_close'))
     fig.layout.update(title_text='Time serious Data', xaxis_rangeslider_visible=True)
     st.plotly_chart(fig)
-#     st.bar_chart(fig)
 
 
 plot_raw_data()
