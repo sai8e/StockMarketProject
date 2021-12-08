@@ -12,7 +12,7 @@ import datetime
 
 stockChoice = []
 
-with open('./resources/nasdaq_screener_1638830312199.csv') as csvfile:
+with open('/resource/nasdaq_screener_1638830312199.csv') as csvfile:
     csvReader = csv.reader(csvfile)
     for row in csvReader:
          stockChoice.append(row[0])
